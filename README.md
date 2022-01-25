@@ -3,7 +3,7 @@
 This is a collection of `OpenFAAS` functions, all having github capabilities of their own :
 
 | `OpenFAAS` function |  Expert in | Misc. |   |   |
-|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
 | `pokus-github-node` | Pull Requests |   |   |   |
 | `pokus-git-flow-bot` | Git Flow AVH | git flow releases are followed by releasing with github cli to promote gt tag as release, fill in release notes. Also will have gitlab cli and gitea cli |   |   |
 | `pokus-gh-issue-bot` | Git Flow AVH | git flow releases are followed by releasing with github cli to promote gt tag as release, fill in release notes. Also will have gitlab cli and gitea cli |   |   |
