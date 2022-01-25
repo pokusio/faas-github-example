@@ -2,11 +2,11 @@
 
 This is a collection of `OpenFAAS` functions, all having github capabilities of their own :
 
-| `OpenFAAS` function |  Expert in | Misc. |   |   |
+| `OpenFAAS` function |  Expert in | Misc. | Supports |   |
 |-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
-| `pokus-github-node` | Pull Requests |   |   |   |
-| `pokus-git-flow-bot` | Git Flow AVH | git flow releases are followed by releasing with github cli to promote gt tag as release, fill in release notes. Also will have gitlab cli and gitea cli |   |   |
-| `pokus-gh-issue-bot` | Git Flow AVH | git flow releases are followed by releasing with github cli to promote gt tag as release, fill in release notes. Also will have gitlab cli and gitea cli |   |   |
+| `pokus-github-node` | Pull Requests/Merge Requests | `Github`, `Gitlab`, `Gitea` |   |   |
+| `pokus-git-flow-bot` | Git Flow AVH | git flow releases are followed by releasing with github cli to promote gt tag as release, fill in release notes. Also will have gitlab cli and gitea cli | `Github`, `Gitlab`, `Gitea`  |   |
+| `pokus-gh-issue-bot` | Issues | git flow releases are followed by releasing with github cli to promote gt tag as release, fill in release notes. Also will have gitlab cli and gitea cli | `Github`, `Gitlab`, `Gitea`  |   |
 
 Cloud functions (`Firebase` and `OpenFAAS`) are awesome to modularize your CICD systems, agnostically :
 * You can use the same cloud functions with just `curl`, from any Pipeline step !
