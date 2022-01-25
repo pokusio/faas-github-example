@@ -1,4 +1,43 @@
-# An `OpenFAAS` Github CLI Template
+# The `OpenFAAS` Github CLI functions
+
+This is a collection of `OpenFAAS` functions, all having github capabilities of their own :
+
+| `OpenFAAS` function |  Expert in | Misc. |   |   |
+|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|-----------------------------------------------|
+| `pokus-github-node` | Pull Requests |   |   |   |
+| `pokus-git-flow-bot` | Git Flow AVH | git flow releases are followed by releasing with github cli to promote gt tag as release, fill in release notes. Also will have gitlab cli and gitea cli |   |   |
+| `pokus-gh-issue-bot` | Git Flow AVH | git flow releases are followed by releasing with github cli to promote gt tag as release, fill in release notes. Also will have gitlab cli and gitea cli |   |   |
+
+Cloud functions (`Firebase` and `OpenFAAS`) are awesome to modularize your CICD systems, agnostically :
+* You can use the same cloud functions with just `curl`, from any Pipeline step !
+* `Circle CI` , `Drone`, `Tekton`, `Jenkins`, `Team city`, `Travis`, ....
+
+
+* The `pokus-github-node` `OpenFAAS` function
+
+## The `pokus-github-node` `OpenFAAS` function
+
+This `OpenFAAS` function is an expert into managing PRs. together with https://dkron.io/, you can do marvels into your
+
+This `OpenFAAS` function :
+* was designed using [the Github CLI `OpenFAAS` template](https://github.com/pokusio/faas-github-example)
+* has feature :
+  * `POST` create/reopen a new PR :
+    * `gh_repo_name: "<your gh repo name>"`, repo name
+    * `gh_org_name: "<your gh org or user name>"`, gh org or user name
+    * http header `-H 'X-Pokus-faaction: < create|reopen >'`
+    * `pr_id` : used iff http header `-H 'X-Pokus-faaction: < edit|comment|assign >'` is set, this parameter gives the id of the PR is reopened and no edition is dine at all (all other parameters are ignored). by default the value is considered `create`
+    * from source git branch `src_git_branch: "<branch name>"`,
+    * to target source git branch `target_git_branch: "<branch name>"`,
+    * `title: "<your title>"`,
+    * `description: "<your description>"`,
+    * `labels`, an array `labels: [ 'label1', 'label2', 'label3', 'label4' ]`
+    * `assignees`, an array `assignees: [ 'assignee1', 'assignee2', 'assignee3', 'assignee4' ]`
+  * `GET` search all PRs :
+    * `opened: true`, and `closed: true`, to selected closed or opened PRs, both default to false.
+    * `search`
+  * `UPDATE` to edit/comment/assign a PR ?
+  * `DELETE` to close a PR ?
 
 ## How to use
 
@@ -39,6 +78,12 @@ functions:
     secrets:
       - pokusbot-gh-token
 EOF
+
+cp ./template/pokus-github-node/.dockerignore ./
+cp ./template/pokus-github-node/package.json ./
+cp ./template/pokus-github-node/index.js ./
+cp ./template/pokus-github-node/*.sh ./
+cp ./template/pokus-github-node/Dockerfile ./
 
 ```
 
