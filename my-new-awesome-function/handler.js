@@ -79,6 +79,22 @@ module.exports = async (event, context) => { // context will be useful
     ghCliHelpCmdResultStdOUT = ghCliHelpCmdResultStdOUT.trim();
     console.log(`{[PokusFaasNode16]} -  [ghCliHelpCmdResultStdOUT=[${ghCliHelpCmdResultStdOUT}]] and [ghCliHelpCmdResult.stdout=[${ghCliHelpCmdResult.stdout}]]`)
   }
+
+  // --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //
+  // github cli login
+  let ghCliLoginCmdResult = shelljs.exec(`ghcli auth login --with-token ${ghPTokenSecret}`);
+  if (ghCliLoginCmdResult.code !== 0) {
+    // throw new Error(`{[PokusFaasNode16]} - [Github CLI] - An Error occurred executing the [git tag -l | grep ${tag_id}] shell command. Shell error was [` + ghCliLoginCmdResult.stderr + "] ")
+    console.log(`{[PokusFaasNode16]} - [Github CLI] - successfully pokus-logged-in!!! :D`)
+  } else {
+    let ghCliLoginCmdResultStdOUT = ghCliLoginCmdResult.stdout;
+    ghCliLoginCmdResultStdOUT = ghCliLoginCmdResultStdOUT.trim();
+    console.log(`{[PokusFaasNode16]} -  [ghCliLoginCmdResultStdOUT=[${ghCliLoginCmdResultStdOUT}]] and [ghCliLoginCmdResult.stdout=[${ghCliLoginCmdResult.stdout}]]`)
+  }
+
+  /// ghcli auth login --with-token
+
+
   // pokus msg
   const pokusmsg = `Pokus: le lien [${event.body.name}] a pour valeur [${event.body.url}] + Github Personal Access Token = [${ghPTokenSecret}]`
   const result = {
