@@ -1,0 +1,23 @@
+{
+  "name": "pokus-github-faaslib",
+  "version": "1.0.0",
+  "description": "This is a collection of `OpenFAAS` functions, all having github capabilities of their own :",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "source ./.npm.scripts/.env.sh && ./.npm.scripts/build-all.sh",
+    "push": "source ./.npm.scripts/.env.sh && ./.npm.scripts/push-all.sh",
+    "deploy": "source ./.npm.scripts/.env.sh && ./.npm.scripts/up-all.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pokusio/faas-github-example.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pokusio/faas-github-example/issues"
+  },
+  "homepage": "https://github.com/pokusio/faas-github-example#readme"
+}

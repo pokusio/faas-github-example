@@ -26,16 +26,25 @@ const commonsService = require('./commons/service')
 /***********************************************************************************************************************
  *    EXAMPLE USAGE:
  */
+  /***********************************************************************************************************************
+  * *
+  * curl -X GET http://127.0.0.1:8080/function/pokus-github-pr \
+  *  -H "Content-Type: application/json" \
+  *   -d '{ "curl_net_test_url": "https://netflix.com", \
+  *         "gh_org_name": "pokusio", \
+  *         "gh_repo_name": "faas-github-example", \
+  *         "gh_pr_labels": [ "devops", "nodejs", "asap", "whatever" ], \
+  *         "gh_pr_assignees": [ "bob156", "anna4web", "tomb8ss", "Jean-Baptiste-Lasselle" ], \
+  *         "pr_search_str": "", \
+  *         "pr_search_pagination_limit": 7 \
+  *        }'
+  *
+  */
 /***********************************************************************************************************************
- * curl -X GET http://127.0.0.1:8080/function/my-new-awesome-function   -H "Content-Type: application/json"
  *
- */
-/***********************************************************************************************************************
- *
- * curl -X POST http://127.0.0.1:8080/function/my-new-awesome-function \
+ * curl -X POST http://127.0.0.1:8080/function/pokus-github-pr \
  *  -H "Content-Type: application/json" \
- *   -d '{ "url": "https://randomuser.me/api/", \
- *         "name": "pokustest", \
+ *   -d '{ "curl_net_test_url": "https://netflix.com", \
  *         "gh_org_name": "pokusio", \
  *         "gh_repo_name": "faas-github-example", \
  *         "gh_pr_title": "faas-github-example", \
@@ -52,8 +61,7 @@ module.exports = async (event, context) => { // context will be useful
   const ghPTokenSecretFilePath = `/var/openfaas/secrets/${ghPTokenSecretName}`
   const pokusExSecretCredentialsFileName = `pokusbot-gh-token`
   const pokusExSecretCredentialsFilePath = `/var/openfaas/secrets/${pokusExSecretCredentialsFileName}`
-
-
+  const curlNetTestUrl = `${event.data.curl_net_test_url}`
   // --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //
   // that's to ...
 
@@ -77,6 +85,7 @@ module.exports = async (event, context) => { // context will be useful
   console.log(`{[  - - PokusFaasNode16]} - check pokusExSecretCredentialsFilePath=[${pokusExSecretCredentialsFilePath}]`);
   console.log("// --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //");
   console.log("// --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //");
+
 
   // --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //
   // load secrets : GITHUB PERSONAL ACCESS TOKEN
@@ -104,6 +113,8 @@ module.exports = async (event, context) => { // context will be useful
   console.info("{[PokusFaasNode16]} - Parsed [Example Credentials File Secret] from secret file located at [" + pokusExSecretCredentialsFilePath + "] / exampleCredentialsFileSecret = [" + exampleCredentialsFileSecret + "]");
 
 
+
+
   // --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //
   // github cli version
   let ghCliCmdResult = shelljs.exec(`ghcli --version`);
@@ -125,7 +136,7 @@ module.exports = async (event, context) => { // context will be useful
     ghCliHelpCmdResultStdOUT = ghCliHelpCmdResultStdOUT.trim();
     console.log(`{[  - - PokusFaasNode16]} -  [ghCliHelpCmdResultStdOUT=[${ghCliHelpCmdResultStdOUT}]] and [ghCliHelpCmdResult.stdout=[${ghCliHelpCmdResult.stdout}]]`)
   }
-  console.info(`// --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //`)
+
   // --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //
   // github cli login
   let ghCliLoginCmdResult = shelljs.exec(`ghcli auth login --with-token ${ghPTokenSecret}`);
@@ -137,12 +148,10 @@ module.exports = async (event, context) => { // context will be useful
     ghCliLoginCmdResultStdOUT = ghCliLoginCmdResultStdOUT.trim();
     console.log(`{[  - - PokusFaasNode16]} -  [ghCliLoginCmdResultStdOUT=[${ghCliLoginCmdResultStdOUT}]] and [ghCliLoginCmdResult.stdout=[${ghCliLoginCmdResult.stdout}]]`)
   }
-  console.info(`// --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //`)
-  console.info(`// --- +   NETWORK TEST`)
 
   // --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //
   // network test
-  let curlNetTestCmdResult = shelljs.exec(`curl -ivvv -L ${event.body.net_test_url}`);
+  let curlNetTestCmdResult = shelljs.exec(`curl -ivvv -L "${curlNetTestUrl}"`);
   if (curlNetTestCmdResult.code !== 0) {
     // throw new Error(`{[  - - PokusFaasNode16]} - [Github CLI] - An Error occurred executing the [git tag -l | grep ${tag_id}] shell command. Shell error was [` + curlNetTestCmdResult.stderr + "] ")
     console.log(`{[  - - PokusFaasNode16]} - [Github CLI] - successfully pokus-tested-network !!! :D`)
@@ -151,8 +160,9 @@ module.exports = async (event, context) => { // context will be useful
     curlNetTestCmdResultStdOUT = curlNetTestCmdResultStdOUT.trim();
     console.log(`{[  - - PokusFaasNode16]} -  [curlNetTestCmdResultStdOUT=[${curlNetTestCmdResultStdOUT}]] and [curlNetTestCmdResult.stdout=[${curlNetTestCmdResult.stdout}]]`)
   }
-  /// ghcli auth login --with-token
-  console.info(`// --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //`)
+
+  // --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- + --- //
+  // IF THIS IS A GET HTTP METHOD : List all PRs
 
 
   // pokus msg
@@ -162,8 +172,6 @@ module.exports = async (event, context) => { // context will be useful
     'content-type': event.headers["content-type"],
     'pokus': 'faas-node16',
     'ghPTokenSecret': `${ghPTokenSecret}`,
-    'context': JSON.stringify(context),
-    'event': JSON.stringify(event),
     'pokusmsg': `${pokusmsg}`
     /* 'event': event,
        'context': context

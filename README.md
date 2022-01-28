@@ -41,18 +41,37 @@ This `OpenFAAS` function :
 
 ## How to use
 
+### Use the faas functions
+
+This repository versions a set of `OpenFAAS` functions : So this basically is a package (a library?) of `OpenFAAS` functions.
+
+Hereis how you can
+
+### Add a new function
 * The Github CLI template makes use of one secret : a `Github Personal Access Token`. So :
   * create a Github personal access token
   * create the `OpenFAAS` secret :
 
 ```bash
+# --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # ---
+# --- for a secret string
+# --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # ---
+
 export GH_PERSONAL_ACCESS_TOKEN="ghp_VUnUwKli0kTnMJ0D6kNcjuQEvvpTVYmA3NuJEC"
 
 echo "${GH_PERSONAL_ACCESS_TOKEN}" | faas-cli secret create pokusbot-gh-token
 # cat ~/Downloads/derek.pem | faas-cli secret create pokusbot-gh-token
+
+# --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # ---
+# --- for a secret file (sshkeys, gpg keys)
+# --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # --- # ---
+echo "huku_DEA176DB9EEF7DEADB00EEFDEADBEEFDEADBEEF" > ./.my.secret.file
+faas-cli secret create pokusbot-example-credentials --from-file ./.my.example.secret.file
+
+
 ```
 
-* Create a new FAAS function using the github cli template :
+* Create a new _FAAS function_ using the Github CLI `OpenFAAS` template :
 
 ```bash
 export FAAS_FUNC_NAME="my-new-awesome-function"
@@ -110,7 +129,7 @@ EOF
 
 ```
 
-* build n deploy your function :
+* build n deploy your new _(github cli augmented)-FAAS function_ :
 
 ```bash
 # Below is a local ip address :
@@ -125,7 +144,7 @@ faas-cli up --build-arg AWESOME=true --image "${OF_TEMPLATE_IMAGE_NAME}" -f my-n
 
 ```
 
-* test your new github cli augmented faas function :
+* test your new _(github cli augmented)-FAAS function_ :
 
 ```bash
 # Below is a local ip address :

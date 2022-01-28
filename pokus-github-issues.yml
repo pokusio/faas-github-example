@@ -3,11 +3,10 @@ provider:
   name: openfaas
   gateway: http://127.0.0.1:8080
 functions:
-  my-new-awesome-function:
+  pokus-github-issues:
     lang: pokus-github-node
-    handler: ./my-new-awesome-function
-    # image: my-new-awesome-function:latest
-    image: 192.168.208.7:5000/pokus/faas-github-cli-node16:0.0.1
+    handler: ./pokus-github-issues
+    image: 192.168.208.7:5000/pokusio/faas-ghub-cli-issues:0.0.1-node16
     secrets:
       - pokusbot-gh-token
       - pokusbot-example-credentials
