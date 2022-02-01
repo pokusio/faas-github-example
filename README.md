@@ -93,7 +93,7 @@ functions:
     lang: pokus-github-node
     handler: ./my-new-awesome-function
     # image: my-new-awesome-function:latest
-    image: 192.168.208.7:5000/pokus/faas-github-cli-node16:0.0.1
+    image: 192.168.168.6:5000/pokus/faas-github-cli-node16:0.0.1
     secrets:
       - pokusbot-gh-token
 EOF
@@ -111,7 +111,7 @@ cp ./template/pokus-github-node/Dockerfile ./
 ```bash
 export FAAS_FUNC_NAME="my-new-awesome-function"
 export FAAS_TEMPLATE_NAME="pokus-github-node"
-export DOCKHOST_IP_ADDR="192.168.208.7"
+export DOCKHOST_IP_ADDR="192.168.168.6"
 cat << EOF > $(pwd)/${FAAS_FUNC_NAME}.yml
 version: 1.0
 provider:
@@ -135,7 +135,7 @@ EOF
 # Below is a local ip address :
 # OpenFAAS : I locally run k3d with 3 servers n 3 agents
 # Docker Registry : I locally run docker-compose
-export DOCKHOST_IP_ADDR="192.168.208.7"
+export DOCKHOST_IP_ADDR="192.168.168.6"
 # "OF_TEMPLATE_IMAGE_NAME"  must be same image name as the
 # image property in the [<name of yoour faas function>.yml]
 export OF_TEMPLATE_IMAGE_NAME="${DOCKHOST_IP_ADDR}:5000/pokus/faas-gh-cli-node16:latest"
@@ -150,7 +150,7 @@ faas-cli up --build-arg AWESOME=true --image "${OF_TEMPLATE_IMAGE_NAME}" -f my-n
 # Below is a local ip address :
 # OpenFAAS : I locally run k3d with 3 servers n 3 agents
 # Docker Registry : I locally run docker-compose
-export DOCKHOST_IP_ADDR="192.168.208.7"
+export DOCKHOST_IP_ADDR="192.168.168.6"
 
 curl -X POST http://127.0.0.1:8080/function/my-new-awesome-function \
   -H "Content-Type: application/json" \

@@ -6,7 +6,7 @@ functions:
   pokus-github-pr:
     lang: pokus-github-node
     handler: ./pokus-github-pr
-    image: 192.168.208.7:5000/pokusio/faas-ghub-cli-pr:0.0.1-node16
+    image: 192.168.168.6:5000/pokusio/faas-ghub-cli-pr:0.0.1-node16
     secrets:
       - pokusbot-gh-token
       - pokusbot-example-credentials

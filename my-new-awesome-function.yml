@@ -7,7 +7,7 @@ functions:
     lang: pokus-github-node
     handler: ./my-new-awesome-function
     # image: my-new-awesome-function:latest
-    image: 192.168.208.7:5000/pokus/faas-github-cli-node16:0.0.1
+    image: 192.168.168.6:5000/pokus/faas-github-cli-node16:0.0.1
     secrets:
       - pokusbot-gh-token
       - pokusbot-example-credentials

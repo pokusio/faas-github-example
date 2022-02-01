@@ -9,7 +9,7 @@ export FAAS_FUNC_NAME="pokus-github-pr"
 # Below is a local ip address :
 # OpenFAAS : I locally run k3d with 3 servers n 3 agents
 # Docker Registry : I locally run docker-compose
-export DOCKHOST_IP_ADDR=${DOCKHOST_IP_ADDR:-"192.168.208.7"}
+export DOCKHOST_IP_ADDR=${DOCKHOST_IP_ADDR:-"192.168.168.6"}
 # "OF_TEMPLATE_IMAGE_NAME"  must be same image name as the
 # image property in the [<name of yoour faas function>.yml]
 export OF_TEMPLATE_IMAGE_NAME="${DOCKHOST_IP_ADDR}:5000/pokusio/faas-ghub-cli-pr:0.0.1-node16"
